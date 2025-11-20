@@ -1,0 +1,22 @@
+# Node/Vite/TypeScript
+node_modules/
+dist/
+build/
+.turbo/
+.cache/
+
+# Env and local configs
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
