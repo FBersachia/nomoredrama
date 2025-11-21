@@ -1,4 +1,5 @@
 import express from 'express';
+import path from 'node:path';
 import cors from 'cors';
 import compression from 'compression';
 import { apiRouter } from './routes/index.js';
@@ -24,6 +25,10 @@ app.use(
 app.use(express.json({ limit: '2mb' }));
 app.use(express.urlencoded({ extended: true, limit: '2mb' }));
 app.use(compression({ level: 6 }));
+
+// Serve static assets from Recursos (images, logo) so frontend URLs work in dev/prod
+const recursosPath = path.resolve(process.cwd(), '../Recursos');
+app.use('/Recursos', express.static(recursosPath));
 
 app.get('/api/health', (_req, res) => {
   res.json({

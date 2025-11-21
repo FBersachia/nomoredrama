@@ -509,6 +509,17 @@ img {
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
 }
 
+.btn--primary {
+  background: linear-gradient(135deg, rgba(140, 248, 210, 0.28), rgba(84, 225, 255, 0.24));
+  border: 1px solid rgba(140, 248, 210, 0.6);
+  box-shadow: 0 10px 30px rgba(140, 248, 210, 0.25);
+}
+
+.btn--primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 14px 40px rgba(140, 248, 210, 0.35);
+}
+
 .admin-messages {
   display: grid;
   gap: 0.35rem;
@@ -518,12 +529,32 @@ img {
   display: grid;
   gap: 0.85rem;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  grid-auto-rows: auto;
+  align-items: start;
+}
+
+.form-grid--equal {
+  grid-auto-rows: 1fr;
+  align-items: stretch;
+}
+
+.form-grid--equal .form-field {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
+}
+
+.form-grid--equal .form-textarea {
+  flex: 1 1 auto;
 }
 
 .form-field {
   display: grid;
   gap: 0.35rem;
   font-size: 0.98rem;
+  align-self: start;
 }
 
 .form-field--short {
@@ -547,6 +578,12 @@ img {
 .form-textarea {
   min-height: 120px;
   resize: vertical;
+}
+
+.input--tall {
+  min-height: 56px;
+  padding-top: 0.8rem;
+  padding-bottom: 0.8rem;
 }
 
 .form-input:focus,
@@ -574,6 +611,12 @@ img {
 
 .form-hint--success {
   color: #9ef8d0;
+}
+
+.form-hint--tall {
+  display: block;
+  min-height: 42px;
+  line-height: 1.5;
 }
 
 .preview-line {

@@ -8,6 +8,9 @@
 `src/services/authService.ts`
 - `validateAdminCredentials(email, password)`: busca en admin_users y compara bcrypt async; devuelve admin o null.
 
+Static/Assets
+- Express expone `/Recursos` apuntando a `../Recursos` (bk/src/app.ts) para servir `Recursos/Fotos/...` y `logo.png` al frontend. Mantener assets optimizados y paths relativos al root (`Recursos/Fotos/...`).
+
 Pendientes
 - Logging/monitoring en servicios y métricas de errores.
 - Mejorar health en `/api/health` para chequear DB y exponer tiempos.

@@ -107,11 +107,22 @@ const normalizeEmpty = (value?: string | null) => {
   return trimmed === '' ? undefined : trimmed;
 };
 
+const resolvePreviewUrl = (path?: string | null) => {
+  if (!path) return null;
+  if (/^blob:/i.test(path) || /^https?:\/\//i.test(path)) return path;
+  const base =
+    (import.meta.env.VITE_ASSET_BASE as string | undefined) ||
+    ((import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/api$/, '') ?? '');
+  const normalized = path.startsWith('/') ? path : `/${path}`;
+  return `${base}${normalized}`;
+};
+
 function AdminPage() {
   const [token, setToken] = useState<string | null>(null);
   const [loginError, setLoginError] = useState<string | null>(null);
   const [saveError, setSaveError] = useState<string | null>(null);
   const [saveSuccess, setSaveSuccess] = useState<string | null>(null);
+  const [heroUploadPreview, setHeroUploadPreview] = useState<string | null>(null);
   const inputClass = 'form-input';
   const selectClass = 'form-select';
   const textAreaClass = 'form-textarea';
@@ -131,7 +142,7 @@ function AdminPage() {
     enabled: !!token
   });
 
-  const heroPreview = form.watch('bio.heroImagePath');
+  const heroPreview = resolvePreviewUrl(heroUploadPreview ?? form.watch('bio.heroImagePath'));
   const logoutMutation = useMutation({
     mutationFn: () => logoutAdmin(token ?? undefined),
     onSettled: () => {
@@ -257,6 +268,14 @@ function AdminPage() {
   const renderFieldError = (message?: string) =>
     message ? <span className="form-hint form-hint--error">{message}</span> : null;
 
+  const handleHeroFile = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const pathGuess = `Recursos/Fotos/${file.name}`;
+    form.setValue('bio.heroImagePath', pathGuess);
+    setHeroUploadPreview(URL.createObjectURL(file));
+  };
+
   return (
     <main className="admin-shell page">
       <div className="neon-grid" />
@@ -317,10 +336,10 @@ function AdminPage() {
                 </div>
                 <span className="pill">Hero + textos</span>
               </div>
-              <div className="form-grid">
+              <div className="form-grid form-grid--equal">
                 <label className="form-field">
                   <span>Texto corto</span>
-                  <input className={inputClass} {...form.register('bio.shortText')} />
+                  <input className={`${inputClass} input--tall`} {...form.register('bio.shortText')} />
                   {renderFieldError(form.formState.errors.bio?.shortText?.message)}
                 </label>
                 <label className="form-field">
@@ -330,7 +349,19 @@ function AdminPage() {
                 </label>
                 <label className="form-field">
                   <span>Hero image path</span>
-                  <input className={inputClass} placeholder="Recursos/Fotos/hero.jpg" {...form.register('bio.heroImagePath')} />
+                  <input
+                    className={`${inputClass} input--tall`}
+                    placeholder="Recursos/Fotos/hero.jpg"
+                    {...form.register('bio.heroImagePath')}
+                  />
+                  <span className="form-hint form-hint--tall">
+                    Usar imagenes JPG/PNG ~1600px de ancho x 900px de alto (~16:9), optimizadas.
+                  </span>
+                </label>
+                <label className="form-field">
+                  <span>Subir hero (elige archivo local)</span>
+                  <input className={inputClass} type="file" accept="image/*" onChange={handleHeroFile} />
+                  <span className="form-hint">Solo referencia el nombre; coloca el archivo en Recursos/Fotos/ antes de publicar.</span>
                 </label>
                 {heroPreview && (
                   <div className="preview-line">
@@ -698,9 +729,12 @@ function AdminPage() {
                 >
                   Recargar datos
                 </button>
-                <button className="btn" type="submit" disabled={saveMutation.isPending}>
-                  {saveMutation.isPending ? 'Guardando...' : 'Guardar todo'}
-                </button>
+                <input
+                  className="btn btn--primary"
+                  type="submit"
+                  disabled={saveMutation.isPending}
+                  value={saveMutation.isPending ? 'Guardando...' : 'Guardar todo'}
+                />
               </div>
             </div>
           </form>

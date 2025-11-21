@@ -9,6 +9,8 @@ Patrones/estructura
 - Tarjetas estilizadas con grid responsivo e inputs custom; listas con append/remove por seccion.
 - Barra de acciones pegajosa abajo (recargar + guardar todo) y boton redundante de guardado en Sets.
 - Token persistido en `localStorage` (auto-restore al cargar y cleanup en logout).
+- Hero preview: muestra blob/local o URLs servidas desde backend usando `VITE_ASSET_BASE`/`VITE_API_URL` como base; solo renderiza si hay path valido.
+- Hint en hero image: recomiendado ~1600x900 (16:9) JPG/PNG optimizado.
 
 Riesgos/decisiones
 - Sin persistencia del token ni proteccion de rutas; pendiente.

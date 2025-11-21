@@ -4,6 +4,9 @@ import { fetchPublicContent } from '../services/api';
 import { PublicContent, SetItem, VisualItem, Collaboration } from '../types/content';
 
 const DEFAULT_WHATSAPP_MESSAGE = 'Hola, quiero coordinar una fecha con Nomoredrama.';
+const ASSET_BASE =
+  (import.meta.env.VITE_ASSET_BASE as string | undefined) ||
+  ((import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/api$/, '') ?? '');
 
 const sortByOrder = <T extends { order?: number }>(items: T[] = []) =>
   [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
@@ -13,6 +16,38 @@ const buildWhatsAppLink = (content?: PublicContent['contact']) => {
   if (!number) return null;
   const message = content?.whatsappMessage?.trim() || DEFAULT_WHATSAPP_MESSAGE;
   return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+};
+
+const getEmbedSrc = (url?: string, platform?: string) => {
+  if (!url) return null;
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname;
+    if (host.includes('youtube.com')) {
+      const videoId =
+        parsed.searchParams.get('v') ??
+        parsed.pathname.split('/').filter(Boolean).pop();
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    }
+    if (host.includes('youtu.be')) {
+      const videoId = parsed.pathname.split('/').filter(Boolean).pop();
+      return videoId ? `https://www.youtube.com/embed/${videoId}` : null;
+    }
+    if (host.includes('vimeo.com')) {
+      const videoId = parsed.pathname.split('/').filter(Boolean).pop();
+      return videoId ? `https://player.vimeo.com/video/${videoId}` : null;
+    }
+    return url;
+  } catch {
+    return null;
+  }
+};
+
+const resolveAssetUrl = (assetPath?: string | null) => {
+  if (!assetPath) return null;
+  if (/^https?:\/\//i.test(assetPath)) return assetPath;
+  const normalized = assetPath.startsWith('/') ? assetPath : `/${assetPath}`;
+  return `${ASSET_BASE}${normalized}`;
 };
 
 function HomePage() {
@@ -28,7 +63,7 @@ function HomePage() {
     [data?.collaborations]
   );
   const influences = useMemo(() => sortByOrder(data?.influences ?? []), [data?.influences]);
-  const heroImage = data?.bio?.heroImagePath || '/hero.jpg';
+  const heroImage = resolveAssetUrl(data?.bio?.heroImagePath) || '/hero.jpg';
   const whatsappLink = buildWhatsAppLink(data?.contact);
 
   if (isLoading) {
@@ -181,13 +216,22 @@ function HomePage() {
                 sets.map((setItem: SetItem) => (
                   <article key={setItem.id ?? setItem.title}>
                     <div className="embed" aria-label={setItem.title ?? 'Set en vivo'}>
-                      {setItem.embedUrl ? (
+                      {getEmbedSrc(setItem.embedUrl, setItem.platform) ? (
                         <iframe
-                          src={setItem.embedUrl}
+                          src={getEmbedSrc(setItem.embedUrl, setItem.platform) ?? ''}
                           title={setItem.title ?? 'Embed de set'}
                           allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                           allowFullScreen
                         />
+                      ) : setItem.embedUrl ? (
+                        <div className="state-card">
+                          <p>El URL no es embebible. Intenta con un enlace de embed (YouTube/Vimeo).</p>
+                          <div style={{ marginTop: '0.75rem' }}>
+                            <a className="btn btn--ghost btn--small" href={setItem.embedUrl} target="_blank" rel="noreferrer">
+                              Abrir enlace
+                            </a>
+                          </div>
+                        </div>
                       ) : (
                         <div className="state-card">
                           <p>Agrega el URL de embed para mostrar el set.</p>
