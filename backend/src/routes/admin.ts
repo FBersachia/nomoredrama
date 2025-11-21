@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
-import { loginAdmin, getAdminContent, upsertContent } from '../controllers/adminController.js';
+import { loginAdmin, getAdminContent, upsertContent, logoutAdmin } from '../controllers/adminController.js';
 import { requireAuth } from '../middlewares/auth.js';
 
 export const adminRouter = Router();
@@ -14,5 +14,6 @@ const loginLimiter = rateLimit({
 });
 
 adminRouter.post('/login', loginLimiter, loginAdmin);
+adminRouter.post('/logout', requireAuth, logoutAdmin);
 adminRouter.get('/content', requireAuth, getAdminContent);
 adminRouter.put('/content', requireAuth, upsertContent);

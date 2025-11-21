@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { AdminUser } from '../models/index.js';
 import { env } from '../config/env.js';
+import { isTokenBlacklisted } from '../utils/tokenBlacklist.js';
 
 export async function requireAuth(req: Request, res: Response, next: NextFunction): Promise<void> {
   const header = req.headers.authorization;
@@ -11,10 +12,14 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
   }
   const token = header.slice(7);
   try {
-    const payload = jwt.verify(token, env.jwtSecret) as { sub: string | number; role?: string; email?: string };
+    const payload = jwt.verify(token, env.jwtSecret) as jwt.JwtPayload;
     const adminId = Number(payload.sub);
     if (!payload.role || payload.role !== 'admin' || Number.isNaN(adminId)) {
       res.status(401).json({ message: 'Token invalido' });
+      return;
+    }
+    if (isTokenBlacklisted(payload.jti)) {
+      res.status(401).json({ message: 'Token revocado' });
       return;
     }
     const admin = await AdminUser.findByPk(adminId);
