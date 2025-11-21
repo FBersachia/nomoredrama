@@ -283,6 +283,13 @@ function AdminPage() {
     form.setValue(`visuals.${index}.imagePath`, pathGuess);
   };
 
+  const renderSaveStatus = () => {
+    if (saveMutation.isPending) return <span className="form-hint">Guardando...</span>;
+    if (saveError) return <span className="form-hint form-hint--error">Error al guardar</span>;
+    if (saveSuccess) return <span className="form-hint form-hint--success">Guardado correctamente</span>;
+    return null;
+  };
+
   return (
     <main className="admin-shell page">
       <div className="neon-grid" />
@@ -346,6 +353,7 @@ function AdminPage() {
                   <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
                     {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
+                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="form-grid form-grid--equal">
@@ -402,12 +410,13 @@ function AdminPage() {
                         order: (visualsFA.fields.length || 0) + 1
                       })
                     }
-                  >
+                    >
                     Anadir visual
                   </button>
                   <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
                     {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
+                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="admin-list">
@@ -484,12 +493,13 @@ function AdminPage() {
                         order: (setsFA.fields.length || 0) + 1
                       })
                     }
-                  >
+                    >
                     Anadir set
                   </button>
                   <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
                     {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
+                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="admin-list">
@@ -564,12 +574,13 @@ function AdminPage() {
                         order: (collaborationsFA.fields.length || 0) + 1
                       })
                     }
-                  >
+                    >
                     Anadir colaboracion
                   </button>
                   <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
                     {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
+                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="admin-list">
@@ -647,12 +658,13 @@ function AdminPage() {
                         order: (influencesFA.fields.length || 0) + 1
                       })
                     }
-                  >
+                    >
                     Anadir influencia
                   </button>
                   <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
                     {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
+                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="admin-list">
@@ -697,7 +709,7 @@ function AdminPage() {
             </section>
 
             <section className="admin-card">
-              <div className="admin-card__head">
+                <div className="admin-card__head">
                 <div>
                   <p className="eyebrow">Contacto</p>
                   <h2>CTA + Redes</h2>
@@ -707,6 +719,7 @@ function AdminPage() {
                   <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
                     {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
+                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="form-grid">

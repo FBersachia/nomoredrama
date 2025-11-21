@@ -13,6 +13,7 @@ Patrones/estructura
 - Hint en hero image: recomiendado ~1600x900 (16:9) JPG/PNG optimizado.
 - Visuales: cada item permite file input (no upload real) que completa `Recursos/Fotos/<archivo>`; hint de usar ~1600x900 (~16:9) <400KB.
 - Cada seccion tiene boton "Guardar" (type submit) que dispara el submit global; se reutiliza estado `saveMutation` para feedback.
+- Mensajes de estado junto a botones de guardar: muestra "Guardando...", "Error al guardar" o "Guardado correctamente" usando el estado global del submit.
 
 Riesgos/decisiones
 - Sin persistencia del token ni proteccion de rutas; pendiente.
