@@ -184,9 +184,12 @@ function HomePage() {
               {visuals.length ? (
                 visuals.map((visual: VisualItem) => (
                   <article className="visual-card" key={visual.id ?? visual.title}>
-                    {visual.imagePath && (
-                      <img src={visual.imagePath} alt={visual.title ?? 'Visual de Nomoredrama'} />
-                    )}
+                    {(() => {
+                      const visualImage = resolveAssetUrl(visual.imagePath);
+                      return visualImage ? (
+                        <img src={visualImage} alt={visual.title ?? 'Visual de Nomoredrama'} />
+                      ) : null;
+                    })()}
                     <div className="visual-card__overlay" />
                     <div className="visual-card__content">
                       <span className="pill">Visual</span>
