@@ -360,6 +360,7 @@ function AdminPage() {
               <div className="admin-list">
                 {visualsFA.fields.map((field, index) => (
                   <div key={field.id} className="admin-item">
+                    <input type="hidden" {...form.register(`visuals.${index}.id` as const)} />
                     <div className="admin-item__title">
                       <span className="pill">#{index + 1}</span>
                       <strong>Visual</strong>
@@ -432,6 +433,7 @@ function AdminPage() {
               <div className="admin-list">
                 {setsFA.fields.map((field, index) => (
                   <div key={field.id} className="admin-item">
+                    <input type="hidden" {...form.register(`sets.${index}.id` as const)} />
                     <div className="admin-item__title">
                       <span className="pill">#{index + 1}</span>
                       <strong>Set</strong>
@@ -508,6 +510,7 @@ function AdminPage() {
               <div className="admin-list">
                 {collaborationsFA.fields.map((field, index) => (
                   <div key={field.id} className="admin-item">
+                    <input type="hidden" {...form.register(`collaborations.${index}.id` as const)} />
                     <div className="admin-item__title">
                       <span className="pill">#{index + 1}</span>
                       <strong>Colab</strong>
@@ -587,6 +590,7 @@ function AdminPage() {
               <div className="admin-list">
                 {influencesFA.fields.map((field, index) => (
                   <div key={field.id} className="admin-item">
+                    <input type="hidden" {...form.register(`influences.${index}.id` as const)} />
                     <div className="admin-item__title">
                       <span className="pill">#{index + 1}</span>
                       <strong>Influ</strong>

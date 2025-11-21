@@ -10,6 +10,7 @@ export const contentSchema = z.object({
   bio: bioSchema.optional(),
   visuals: z.array(
     z.object({
+      id: z.number().int().optional(),
       title: z.string().min(1),
       description: z.string().optional(),
       imagePath: z.string().min(1),
@@ -18,6 +19,7 @@ export const contentSchema = z.object({
   ).optional(),
   sets: z.array(
     z.object({
+      id: z.number().int().optional(),
       title: z.string().min(1),
       description: z.string().optional(),
       embedUrl: z.string().url(),
@@ -27,6 +29,7 @@ export const contentSchema = z.object({
   ).optional(),
   collaborations: z.array(
     z.object({
+      id: z.number().int().optional(),
       name: z.string().min(1),
       role: z.string().optional(),
       year: z.number().int().optional(),
@@ -36,6 +39,7 @@ export const contentSchema = z.object({
   ).optional(),
   influences: z.array(
     z.object({
+      id: z.number().int().optional(),
       name: z.string().min(1),
       genre: z.string().optional(),
       note: z.string().optional(),
