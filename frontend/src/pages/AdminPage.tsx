@@ -353,13 +353,7 @@ function AdminPage() {
                   <p className="eyebrow">Bio</p>
                   <h2>Identidad</h2>
                 </div>
-                <div className="admin-inline-actions">
-                  <span className="pill">Hero + textos</span>
-                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
-                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
-                  </button>
-                  {renderSaveStatus()}
-                </div>
+                <span className="pill">Hero + textos</span>
               </div>
               <div className="form-grid form-grid--equal">
                 <label className="form-field">
@@ -394,6 +388,12 @@ function AdminPage() {
                     <img src={heroPreview} alt="Hero preview" className="preview-thumb" />
                   </div>
                 )}
+                <div className="admin-card__footer">
+                  <div className="admin-messages">{renderSaveStatus()}</div>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                  </button>
+                </div>
               </div>
             </section>
 
@@ -415,13 +415,9 @@ function AdminPage() {
                         order: (visualsFA.fields.length || 0) + 1
                       })
                     }
-                    >
+                  >
                     Anadir visual
                   </button>
-                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
-                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
-                  </button>
-                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="admin-list">
@@ -474,10 +470,16 @@ function AdminPage() {
                         Eliminar
                       </button>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                    </div>
+                  ))}
+                </div>
+                <div className="admin-card__footer">
+                  <div className="admin-messages">{renderSaveStatus()}</div>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                  </button>
+                </div>
+              </section>
 
             <section className="admin-card">
               <div className="admin-card__head">
@@ -498,13 +500,9 @@ function AdminPage() {
                         order: (setsFA.fields.length || 0) + 1
                       })
                     }
-                    >
+                  >
                     Anadir set
                   </button>
-                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
-                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
-                  </button>
-                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="admin-list">
@@ -555,10 +553,16 @@ function AdminPage() {
                         Eliminar
                       </button>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                    </div>
+                  ))}
+                </div>
+                <div className="admin-card__footer">
+                  <div className="admin-messages">{renderSaveStatus()}</div>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                  </button>
+                </div>
+              </section>
 
             <section className="admin-card">
               <div className="admin-card__head">
@@ -579,13 +583,9 @@ function AdminPage() {
                         order: (collaborationsFA.fields.length || 0) + 1
                       })
                     }
-                    >
+                  >
                     Anadir colaboracion
                   </button>
-                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
-                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
-                  </button>
-                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="admin-list">
@@ -640,10 +640,16 @@ function AdminPage() {
                         Eliminar
                       </button>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                    </div>
+                  ))}
+                </div>
+                <div className="admin-card__footer">
+                  <div className="admin-messages">{renderSaveStatus()}</div>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                  </button>
+                </div>
+              </section>
 
             <section className="admin-card">
               <div className="admin-card__head">
@@ -663,13 +669,9 @@ function AdminPage() {
                         order: (influencesFA.fields.length || 0) + 1
                       })
                     }
-                    >
+                  >
                     Anadir influencia
                   </button>
-                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
-                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
-                  </button>
-                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="admin-list">
@@ -708,23 +710,25 @@ function AdminPage() {
                         Eliminar
                       </button>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+                    </div>
+                  ))}
+                </div>
+                <div className="admin-card__footer">
+                  <div className="admin-messages">{renderSaveStatus()}</div>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                  </button>
+                </div>
+              </section>
 
             <section className="admin-card">
-                <div className="admin-card__head">
+              <div className="admin-card__head">
                 <div>
                   <p className="eyebrow">Contacto</p>
                   <h2>CTA + Redes</h2>
                 </div>
                 <div className="admin-inline-actions">
                   <span className="pill">WhatsApp + redes</span>
-                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
-                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
-                  </button>
-                  {renderSaveStatus()}
                 </div>
               </div>
               <div className="form-grid">
@@ -761,6 +765,12 @@ function AdminPage() {
                   <span>Ubicacion</span>
                   <input className={inputClass} {...form.register('contact.location')} placeholder="Ciudad, Pais" />
                 </label>
+              </div>
+              <div className="admin-card__footer">
+                <div className="admin-messages">{renderSaveStatus()}</div>
+                <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                  {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                </button>
               </div>
             </section>
 

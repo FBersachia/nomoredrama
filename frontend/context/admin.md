@@ -15,6 +15,7 @@ Patrones/estructura
 - Cada seccion tiene boton "Guardar" (type submit) que dispara el submit global; se reutiliza estado `saveMutation` para feedback.
 - Mensajes de estado junto a botones de guardar: muestra "Guardando...", "Error al guardar" o "Guardado correctamente" usando el estado global del submit.
 - Mensaje "Guardado correctamente" se oculta autom��ticamente a los 3s.
+- Botones de guardar se ubican al final de cada tarjeta seccion (footer), alineados a la derecha con el mensaje de estado.
 
 Riesgos/decisiones
 - Sin persistencia del token ni proteccion de rutas; pendiente.
