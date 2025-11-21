@@ -126,6 +126,11 @@ function AdminPage() {
   const inputClass = 'form-input';
   const selectClass = 'form-select';
   const textAreaClass = 'form-textarea';
+  useEffect(() => {
+    if (!saveSuccess) return;
+    const t = setTimeout(() => setSaveSuccess(null), 3000);
+    return () => clearTimeout(t);
+  }, [saveSuccess]);
 
   const form = useForm<AdminFormValues>({
     defaultValues: emptyValues
