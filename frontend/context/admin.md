@@ -8,6 +8,7 @@ Patrones/estructura
 - Enrutado con `BrowserRouter` usando flags `v7_startTransition` y `v7_relativeSplatPath` para adelantarnos a React Router v7.
 - Tarjetas estilizadas con grid responsivo e inputs custom; listas con append/remove por seccion.
 - Barra de acciones pegajosa abajo (recargar + guardar todo) y boton redundante de guardado en Sets.
+- Token persistido en `localStorage` (auto-restore al cargar y cleanup en logout).
 
 Riesgos/decisiones
 - Sin persistencia del token ni proteccion de rutas; pendiente.

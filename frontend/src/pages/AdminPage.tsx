@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { fetchAdminContent, loginAdmin, saveContent } from '../services/api';
+import { clearStoredAdminToken, fetchAdminContent, getStoredAdminToken, loginAdmin, saveContent } from '../services/api';
 
 const optionalNumber = z
   .preprocess((val) => {
@@ -136,8 +136,16 @@ function AdminPage() {
     setToken(null);
     setSaveError(null);
     setSaveSuccess(null);
+    clearStoredAdminToken();
     form.reset(emptyValues);
   };
+
+  useEffect(() => {
+    const storedToken = getStoredAdminToken();
+    if (storedToken) {
+      setToken(storedToken);
+    }
+  }, []);
 
   useEffect(() => {
     if (contentQuery.data) {
