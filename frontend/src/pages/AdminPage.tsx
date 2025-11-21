@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useFieldArray, useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { clearStoredAdminToken, fetchAdminContent, getStoredAdminToken, loginAdmin, saveContent } from '../services/api';
+import { clearStoredAdminToken, fetchAdminContent, getStoredAdminToken, loginAdmin, logoutAdmin, saveContent } from '../services/api';
 
 const optionalNumber = z
   .preprocess((val) => {
@@ -132,12 +132,19 @@ function AdminPage() {
   });
 
   const heroPreview = form.watch('bio.heroImagePath');
+  const logoutMutation = useMutation({
+    mutationFn: () => logoutAdmin(token ?? undefined),
+    onSettled: () => {
+      setToken(null);
+      setSaveError(null);
+      setSaveSuccess(null);
+      clearStoredAdminToken();
+      form.reset(emptyValues);
+    }
+  });
+
   const handleLogout = () => {
-    setToken(null);
-    setSaveError(null);
-    setSaveSuccess(null);
-    clearStoredAdminToken();
-    form.reset(emptyValues);
+    logoutMutation.mutate();
   };
 
   useEffect(() => {
@@ -265,8 +272,8 @@ function AdminPage() {
               {token ? 'Sesion activa' : 'No autenticado'}
             </span>
             {token && (
-              <button type="button" className="btn btn--ghost btn--small" onClick={handleLogout}>
-                Cerrar sesion
+              <button type="button" className="btn btn--ghost btn--small" onClick={handleLogout} disabled={logoutMutation.isPending}>
+                {logoutMutation.isPending ? 'Cerrando...' : 'Cerrar sesion'}
               </button>
             )}
           </div>

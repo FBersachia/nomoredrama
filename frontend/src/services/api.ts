@@ -45,3 +45,15 @@ export function getStoredAdminToken() {
 export function clearStoredAdminToken() {
   localStorage.removeItem(ADMIN_TOKEN_KEY);
 }
+
+export async function logoutAdmin(token?: string) {
+  const { data } = await client.post(
+    '/v1/admin/logout',
+    {},
+    {
+      headers: { Authorization: `Bearer ${resolveToken(token)}` }
+    }
+  );
+  clearStoredAdminToken();
+  return data;
+}
