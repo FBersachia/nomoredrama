@@ -11,6 +11,7 @@ Patrones/estructura
 - Token persistido en `localStorage` (auto-restore al cargar y cleanup en logout).
 - Hero preview: muestra blob/local o URLs servidas desde backend usando `VITE_ASSET_BASE`/`VITE_API_URL` como base; solo renderiza si hay path valido.
 - Hint en hero image: recomiendado ~1600x900 (16:9) JPG/PNG optimizado.
+- Visuales: cada item permite file input (no upload real) que completa `Recursos/Fotos/<archivo>`; hint de usar ~1600x900 (~16:9) <400KB.
 
 Riesgos/decisiones
 - Sin persistencia del token ni proteccion de rutas; pendiente.

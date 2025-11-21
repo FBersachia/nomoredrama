@@ -276,6 +276,13 @@ function AdminPage() {
     setHeroUploadPreview(URL.createObjectURL(file));
   };
 
+  const handleVisualFile = (index: number, event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    const pathGuess = `Recursos/Fotos/${file.name}`;
+    form.setValue(`visuals.${index}.imagePath`, pathGuess);
+  };
+
   return (
     <main className="admin-shell page">
       <div className="neon-grid" />
@@ -421,6 +428,15 @@ function AdminPage() {
                           placeholder="Recursos/Fotos/..."
                         />
                         {renderFieldError(form.formState.errors.visuals?.[index]?.imagePath?.message)}
+                        <input
+                          className={inputClass}
+                          type="file"
+                          accept="image/*"
+                          onChange={(e) => handleVisualFile(index, e)}
+                        />
+                        <span className="form-hint">
+                          Usar imagenes ~1600px de ancho x 900px de alto (~16:9), optimizadas &lt;400KB.
+                        </span>
                       </label>
                       <label className="form-field form-field--short">
                         <span>Orden</span>
