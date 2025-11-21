@@ -341,7 +341,12 @@ function AdminPage() {
                   <p className="eyebrow">Bio</p>
                   <h2>Identidad</h2>
                 </div>
-                <span className="pill">Hero + textos</span>
+                <div className="admin-inline-actions">
+                  <span className="pill">Hero + textos</span>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                  </button>
+                </div>
               </div>
               <div className="form-grid form-grid--equal">
                 <label className="form-field">
@@ -399,6 +404,9 @@ function AdminPage() {
                     }
                   >
                     Anadir visual
+                  </button>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
                 </div>
               </div>
@@ -480,7 +488,7 @@ function AdminPage() {
                     Anadir set
                   </button>
                   <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
-                    {saveMutation.isPending ? 'Guardando...' : 'Guardar aqui'}
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
                 </div>
               </div>
@@ -558,6 +566,9 @@ function AdminPage() {
                     }
                   >
                     Anadir colaboracion
+                  </button>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
                   </button>
                 </div>
               </div>
@@ -639,6 +650,9 @@ function AdminPage() {
                   >
                     Anadir influencia
                   </button>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                  </button>
                 </div>
               </div>
               <div className="admin-list">
@@ -688,7 +702,12 @@ function AdminPage() {
                   <p className="eyebrow">Contacto</p>
                   <h2>CTA + Redes</h2>
                 </div>
-                <span className="pill">WhatsApp + redes</span>
+                <div className="admin-inline-actions">
+                  <span className="pill">WhatsApp + redes</span>
+                  <button className="btn btn--small" type="submit" disabled={saveMutation.isPending}>
+                    {saveMutation.isPending ? 'Guardando...' : 'Guardar'}
+                  </button>
+                </div>
               </div>
               <div className="form-grid">
                 <label className="form-field">

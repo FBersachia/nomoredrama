@@ -12,6 +12,7 @@ Patrones/estructura
 - Hero preview: muestra blob/local o URLs servidas desde backend usando `VITE_ASSET_BASE`/`VITE_API_URL` como base; solo renderiza si hay path valido.
 - Hint en hero image: recomiendado ~1600x900 (16:9) JPG/PNG optimizado.
 - Visuales: cada item permite file input (no upload real) que completa `Recursos/Fotos/<archivo>`; hint de usar ~1600x900 (~16:9) <400KB.
+- Cada seccion tiene boton "Guardar" (type submit) que dispara el submit global; se reutiliza estado `saveMutation` para feedback.
 
 Riesgos/decisiones
 - Sin persistencia del token ni proteccion de rutas; pendiente.
